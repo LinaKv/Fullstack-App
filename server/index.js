@@ -10,6 +10,13 @@ import path from "path";
 import { fileURLToPath } from "url";
 import authRoutes from "./routes/auth.js";
 import { register } from "./controllers/auth.js";
+import userRoutes from "./routes/users.js";
+import postRoutes from "./routes/postsRoutes.js";
+import { createPost } from "./controllers/posts.js";
+import { verifyToken } from "./middlware/auth.js";
+import User from "./models/User.js";
+import Post from "./models/Post.js";
+import { users, posts } from "./data/index.js";
 
 // configuration
 // it's only when you use type modules
@@ -41,9 +48,17 @@ const upload = multer({ storage });
 
 // ROUTES WITH FILES
 app.post("/auth/register", upload.single("picture"), register);
+// 2 posts
+// ability to post smt
+// picture is a property
+app.post("/posts", verifyToken, upload.single("picture"), createPost);
 
 //  ROUTES LOGIN
 app.use("/auth", authRoutes);
+// 1
+app.use("/users", userRoutes);
+// 1 posts
+app.use("/posts", postRoutes);
 
 // Mongoose Setup
 const PORT = process.env.PORT || 6001;
@@ -53,6 +68,12 @@ mongoose
     useUnifiedTopology: true,
   })
   .then(() => {
+    // it's where app starts
     app.listen(PORT, () => console.log(`Server Port ${PORT}`));
+
+    // Start information
+    // add data one time
+    User.insertMany(users);
+    Post.insertMany(posts);
   })
   .catch((error) => console.log(error));
