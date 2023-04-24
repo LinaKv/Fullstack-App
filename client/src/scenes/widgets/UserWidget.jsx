@@ -18,8 +18,6 @@ function UserWidget({ userId, picturePath }) {
   const medium = palette.neutral.medium;
   const main = palette.neutral.main;
 
-  console.log(userId);
-
   // improve latter
   useEffect(() => {
     const getUser = async () => {
