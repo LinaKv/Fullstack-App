@@ -6,6 +6,7 @@ import WidgetWrapper from "components/WidgetWrapper";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { useFetcher, useNavigate } from "react-router-dom";
+import API from "../../api";
 
 import React from "react";
 
@@ -21,16 +22,16 @@ function UserWidget({ userId, picturePath }) {
   // improve latter
   useEffect(() => {
     const getUser = async () => {
-      const response = await fetch(`http://localhost:3001/users/${userId}`, {
-        method: "GET",
+      const response = await API(`users/${userId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
-      const data = await response.json();
+      const data = await response.data;
+      console.log(data);
       setUser(data);
     };
 
     getUser();
-  }, [userId]);
+  }, []);
 
   if (!user) {
     return null;

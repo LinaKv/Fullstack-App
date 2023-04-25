@@ -6,6 +6,7 @@ import { useFetcher, useNavigate } from "react-router-dom";
 import { setFriends } from "state";
 import FlexBetween from "./FlexBetween";
 import UserImage from "./UserImage";
+import API from "../api";
 
 function Friend({ friendId, name, subtitle, userPicturePath }) {
   const { palette } = useTheme();
@@ -23,14 +24,17 @@ function Friend({ friendId, name, subtitle, userPicturePath }) {
   const isFriend = friends.find((friend) => friend._id === friendId);
 
   const patchFriend = async () => {
-    const response = await fetch(`http://localhost:3001/users/${_id}/${friendId}`, {
-      method: "PATCH",
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
-    });
-    const data = await response.json();
+    const response = await API.patch(
+      `users/${_id}/${friendId}`,
+      { isFriend: true },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    const data = await response.data;
     dispatch(setFriends({ friends: data }));
   };
 

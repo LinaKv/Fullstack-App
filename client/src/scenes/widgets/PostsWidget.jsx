@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useFetcher } from "react-router-dom";
 import { setPosts } from "state";
 import PostWidget from "./PostWidget";
+import API from "../../api";
 
 function PostsWidget({ userId, isProfile = false }) {
   const dispatch = useDispatch();
@@ -12,11 +13,10 @@ function PostsWidget({ userId, isProfile = false }) {
 
   useEffect(() => {
     const getPosts = async () => {
-      const response = await fetch(`http://localhost:3001/posts`, {
-        method: "GET",
+      const response = await API(`posts`, {
         headers: { Authorization: `Bearer ${token}` },
       });
-      const data = await response.json();
+      const data = await response.data;
       dispatch(setPosts({ posts: data }));
     };
     if (!isProfile) {
@@ -26,11 +26,10 @@ function PostsWidget({ userId, isProfile = false }) {
 
   useEffect(() => {
     const getUserPosts = async () => {
-      const response = await fetch(`http://localhost:3001/posts/${userId}/posts`, {
-        method: "GET",
+      const response = await API(`posts/${userId}/posts`, {
         headers: { Authorization: `Bearer ${token}` },
       });
-      const data = await response.json();
+      const data = await response.data;
       dispatch(setPosts({ posts: data }));
     };
 

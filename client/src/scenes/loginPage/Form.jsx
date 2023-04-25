@@ -9,6 +9,7 @@ import { setLogin } from "state";
 // download pictures
 import Dropzone from "react-dropzone";
 import FlexBetween from "components/FlexBetween";
+import API from "../../api";
 
 const registerSchema = yup.object().shape({
   firstName: yup.string().required("required"),
@@ -57,11 +58,9 @@ function Form() {
     }
     formData.append("picturePath", values.picture.name);
 
-    const savedUserResponse = await fetch("http://localhost:3001/auth/register", {
-      method: "POST",
-      body: formData,
-    });
-    const savedUser = await savedUserResponse.json();
+    const savedUserResponse = await API.post("auth/register", formData);
+
+    const savedUser = await savedUserResponse.data;
     console.log(savedUser);
     onSubmitProps.resetForm();
 
@@ -71,12 +70,13 @@ function Form() {
   };
 
   const login = async (values, onSubmitProps) => {
-    const loggedUserResponse = await fetch("http://localhost:3001/auth/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(values),
+    const loggedUserResponse = await API.post("auth/login", JSON.stringify(values), {
+      headers: {
+        "Content-Type": "application/json",
+      },
     });
-    const loggedIn = await loggedUserResponse.json();
+
+    const loggedIn = await loggedUserResponse.data;
     onSubmitProps.resetForm();
 
     if (loggedIn) {
