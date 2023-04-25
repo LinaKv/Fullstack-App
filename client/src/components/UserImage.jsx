@@ -1,6 +1,6 @@
 import { Box } from "@mui/material";
 import { styled } from "@mui/system";
-import local from "../../const";
+import local from "../const";
 
 const UserImage = ({ image, size = "60px" }) => {
   return (

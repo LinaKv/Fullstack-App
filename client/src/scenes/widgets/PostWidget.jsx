@@ -12,6 +12,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setPost } from "state";
 import local from "../../const";
+import API from "../../api";
 
 function PostWidget({
   postId,
