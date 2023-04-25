@@ -2,6 +2,7 @@ import React from "react";
 import { Typography, useTheme } from "@mui/material";
 import FlexBetween from "components/FlexBetween";
 import WidgetWrapper from "components/WidgetWrapper";
+import local from "../../const";
 
 function AdvertWidget() {
   const { palette } = useTheme();
@@ -25,7 +26,8 @@ function AdvertWidget() {
         width='100%'
         height='auto'
         alt='advert'
-        src='http://localhost:3001/assets/info4.jpeg'
+        // src='http://localhost:3001/assets/info4.jpeg'
+        src={`${local}assets/info4.jpeg`}
         style={{ borderRadius: "0.75rem", margin: "0.75rem 0" }}
       />
       <FlexBetween>

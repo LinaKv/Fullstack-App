@@ -1,5 +1,6 @@
 import { Box } from "@mui/material";
 import { styled } from "@mui/system";
+import local from "../../const";
 
 const UserImage = ({ image, size = "60px" }) => {
   return (
@@ -8,7 +9,8 @@ const UserImage = ({ image, size = "60px" }) => {
       height={size}
     >
       <img
-        src={`http://localhost:3001/assets/${image}`}
+        // src={`http://localhost:3001/assets/${image}`}
+        src={`${local}assets/${image}`}
         alt='user'
         style={{ objectFit: "cover", borderRadius: "50%" }}
         width={size}
