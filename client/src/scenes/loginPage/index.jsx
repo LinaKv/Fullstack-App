@@ -37,7 +37,8 @@ function LoginPage() {
             mb: "1.5rem",
           }}
         >
-          Welcome to Sociopedia! This is my project to lear React and Redux
+          Welcome to Sociopedia! This is my project to lear React and Redux You can use e-mail: test@test.ru
+          password:test
         </Typography>
         <Form />
       </Box>
